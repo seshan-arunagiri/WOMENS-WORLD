@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Smooth Scroll + scroll-padding for fixed navbar ───── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Offset all anchor jumps by navbar height (64px = h-16) */
+  scroll-padding-top: 4rem;
+}
+
+/* Every section with an id gets a scroll-margin so both CSS
+   anchor-clicks AND JS scrollIntoView land below the navbar */
+section[id],
+div[id] {
+  scroll-margin-top: 4rem;
+}
+
+/* ── Base ───────────────────────────────────────────────── */
+body {
+  background-color: #EDE6F2;
+  color: #231120;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* ── Gold Shimmer Utility ───────────────────────────────── */
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(
+      90deg,
+      #C9A66B 0%,
+      #E8C98A 40%,
+      #C9A66B 60%,
+      #A88040 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-regal {
+    background: linear-gradient(135deg, #3B1240 0%, #6B2470 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gold-divider {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #C9A66B 30%,
+      #E8C98A 50%,
+      #C9A66B 70%,
+      transparent 100%
+    );
+  }
+
+  .glass-card {
+    background: rgba(237, 230, 242, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 166, 107, 0.18);
+  }
+
+  /* ── Subtle dot grain texture ───────────────────────────
+     A whisper of texture: 1px dots on a 20px grid,
+     violet at ~6% opacity. No SVG, no file load — pure CSS.
+     Use .subtle-texture on any section for this effect.    */
+  .subtle-texture {
+    background-image:
+      radial-gradient(
+        circle,
+        rgba(59, 18, 64, 0.06) 1px,
+        transparent 1px
+      );
+    background-size: 20px 20px;
+  }
+
+  /* Lighter variant for the dark About section */
+  .subtle-texture-gold {
+    background-image:
+      radial-gradient(
+        circle,
+        rgba(201, 166, 107, 0.07) 1px,
+        transparent 1px
+      );
+    background-size: 20px 20px;
+  }
+
+  /* ── Dark section variant ──────────────────────────────────── */
+  .dark-section {
+    background-color: #231120;
+    color: #FAF3F0;
+  }
+  .dark-section-violet {
+    background-color: #3B1240;
+    color: #FAF3F0;
+  }
+  .dark-section h1, .dark-section h2, .dark-section h3,
+  .dark-section-violet h1, .dark-section-violet h2, .dark-section-violet h3 {
+    color: #FAF3F0;
+  }
+  .dark-section p, .dark-section-violet p {
+    color: rgba(250,243,240,0.78);
+  }
+
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+  .animate-delay-600 { animation-delay: 600ms; }
+
+  /* Panel icon circle background — translucent violet */
+  .icon-circle-bg {
+    background-color: rgba(59, 18, 64, 0.07);
+  }
+
+  /* Trust badge — small-caps, gold, tracked */
+  .trust-badge {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #C9A66B;
+    opacity: 0.85;
+  }
+}
+
+/* ── Selection ──────────────────────────────────────────── */
+::selection {
+  background-color: rgba(201, 166, 107, 0.3);
+  color: #3B1240;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #EDE6F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A66B;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3B1240;
+}
+
+/* ── Focus Ring ─────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid #C9A66B;
+  outline-offset: 3px;
+  border-radius: 4px;
+}

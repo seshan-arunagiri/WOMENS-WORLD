@@ -1,4 +1,7 @@
-import { Container } from "@/components/ui";
+"use client";
+
+import { useState } from "react";
+import { Button, Container } from "@/components/ui";
 
 /* ── Gallery grid item definitions ───────────────────────────────────
    Mix of square (1:1), portrait (4:5), and landscape (4:3 / 16:9)
@@ -16,10 +19,10 @@ interface GalleryItem {
 }
 
 const ASPECT_STYLE: Record<AspectKey, string> = {
-  square:          "row-span-4",
-  portrait:        "row-span-5",
-  landscape:       "row-span-3",
-  "landscape-wide":"row-span-3",
+  square:          "aspect-square",
+  portrait:        "aspect-[4/5]",
+  landscape:       "aspect-[4/3]",
+  "landscape-wide":"aspect-[16/9]",
 };
 
 /* Layout rationale:
@@ -41,21 +44,23 @@ const GALLERY_ITEMS: GalleryItem[] = [
 ];
 
 /* ── Single gallery cell ─────────────────────────────────────────── */
-function GalleryCell({ item }: { item: GalleryItem }) {
-  const spanClass =
-    item.span === "wide"
-      ? "col-span-2 sm:col-span-2 lg:col-span-2"   /* full-width mobile, 2/3 desktop */
-      : "col-span-1";
+function GalleryCell({ item, index, onClick }: { item: GalleryItem; index: number; onClick: () => void }) {
+  // We use CSS columns, so items naturally flow. break-inside-avoid prevents splitting.
+  // We apply staggered fade-in animation based on index
+  const delayClass = `animate-delay-${(index % 6) * 100}`;
 
   return (
-    <div
+    <button
       id={item.id}
+      onClick={onClick}
+      aria-label={`View ${item.label}`}
       className={[
-        spanClass,
-        "relative overflow-hidden rounded-xl",
-        "border border-highlight/20",
+        "relative overflow-hidden rounded-xl w-full block mb-3 sm:mb-4 break-inside-avoid",
+        "border border-highlight/20 cursor-pointer",
         "group transition-all duration-300 ease-out",
         "hover:border-highlight/50 hover:shadow-card-hover",
+        "animate-fade-up",
+        delayClass,
         ASPECT_STYLE[item.aspect],
       ].join(" ")}
     >
@@ -107,71 +112,122 @@ function GalleryCell({ item }: { item: GalleryItem }) {
           {item.label}
         </p>
       </div>
-    </div>
+    </button>
   );
 }
 
 /* ── Main exported section ────────────────────────────────────────── */
 export function GallerySection() {
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [lightboxItem, setLightboxItem] = useState<GalleryItem | null>(null);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + 6, GALLERY_ITEMS.length));
+  };
+
   return (
-    /* id="gallery" — matches nav link href="#gallery".
-       bg #231120 dark — alternates off Services' lavender #EDE6F2.    */
-    <section
-      id="gallery"
-      className="subtle-texture-gold relative py-20 sm:py-28 overflow-hidden"
-      style={{ backgroundColor: "#231120" }}
-    >
-      {/* Radial gold halo behind heading */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-56 rounded-full"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(201,166,107,0.07) 0%, transparent 70%)",
-        }}
-      />
+    <>
+      <section
+        id="gallery"
+        className="subtle-texture-gold relative py-20 sm:py-28 overflow-hidden"
+        style={{ backgroundColor: "#231120" }}
+      >
+        {/* Radial gold halo behind heading */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-56 rounded-full"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(201,166,107,0.07) 0%, transparent 70%)",
+          }}
+        />
 
-      <Container className="relative z-10 flex flex-col gap-12">
+        <Container className="relative z-10 flex flex-col gap-12">
+          {/* Section heading */}
+          <div className="flex flex-col items-center gap-3 text-center">
+            <h2
+              className="font-heading font-bold leading-tight text-3xl sm:text-4xl md:text-5xl"
+              style={{ color: "#FAF3F0" }}
+            >
+              Our{" "}
+              <span className="text-gradient-gold italic">Gallery</span>
+            </h2>
+            <div className="gold-divider w-24 animate-gold-pulse" aria-hidden="true" />
+            <p
+              className="font-body text-base sm:text-lg max-w-xl leading-relaxed mt-1"
+              style={{ color: "rgba(232,223,240,0.70)" }}
+            >
+              Every look is a story we told together — brides, celebrations, and
+              craftsmanship captured one frame at a time.
+            </p>
+          </div>
 
-        {/* Section heading — dark-bg variant (SectionHeading uses text-primary
-             which is invisible on dark; write inline with ivory) */}
-        <div className="flex flex-col items-center gap-3 text-center">
-          <h2
-            className="font-heading font-bold leading-tight text-3xl sm:text-4xl md:text-5xl"
-            style={{ color: "#FAF3F0" }}
-          >
-            Our{" "}
-            <span className="text-gradient-gold italic">Gallery</span>
-          </h2>
-          <div className="gold-divider w-24 animate-gold-pulse" aria-hidden="true" />
-          <p
-            className="font-body text-base sm:text-lg max-w-xl leading-relaxed mt-1"
-            style={{ color: "rgba(232,223,240,0.70)" }}
-          >
-            Every look is a story we told together — brides, celebrations, and
-            craftsmanship captured one frame at a time.
-          </p>
-        </div>
+          {/* ── Gallery CSS Column Masonry ───────────────────────── */}
+          <div className="columns-2 lg:columns-3 gap-3 sm:gap-4">
+            {GALLERY_ITEMS.slice(0, visibleCount).map((item, index) => (
+              <GalleryCell 
+                key={item.id} 
+                item={item} 
+                index={index}
+                onClick={() => setLightboxItem(item)} 
+              />
+            ))}
+          </div>
 
-        {/* ── Gallery grid ─────────────────────────────────────────
-            Using grid-auto-rows with a small base height (e.g. 50px)
-            and row-span classes to build a CSS grid masonry.
-            "wide" items: col-span-2 on ALL breakpoints. */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 auto-rows-[60px] sm:auto-rows-[80px] lg:auto-rows-[90px] grid-flow-row-dense">
-          {GALLERY_ITEMS.map((item) => (
-            <GalleryCell key={item.id} item={item} />
-          ))}
-        </div>
+          {/* Load More Button */}
+          {visibleCount < GALLERY_ITEMS.length && (
+            <div className="flex justify-center mt-4">
+              <Button onClick={handleLoadMore} variant="outline" size="md">
+                Load More
+              </Button>
+            </div>
+          )}
 
-        {/* Lightbox note — deferred to later polish pass */}
-        <p
-          className="text-center font-body text-xs tracking-widest uppercase"
-          style={{ color: "rgba(201,166,107,0.4)" }}
+        </Container>
+      </section>
+
+      {/* ── Lightbox Modal ─────────────────────────────────────── */}
+      {lightboxItem && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-primary/95 backdrop-blur-sm p-4 sm:p-8 animate-fade-in"
+          onClick={() => setLightboxItem(null)}
+          role="dialog"
+          aria-modal="true"
         >
-          More work coming soon
-        </p>
+          {/* Close button */}
+          <button 
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+            onClick={() => setLightboxItem(null)}
+            aria-label="Close lightbox"
+          >
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
 
-      </Container>
-    </section>
+          {/* Content */}
+          <div 
+            className={`relative w-full max-w-4xl rounded-2xl overflow-hidden border border-highlight/30 shadow-2xl ${ASPECT_STYLE[lightboxItem.aspect]}`}
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "linear-gradient(145deg, rgba(59,18,64,0.8) 0%, rgba(93,40,110,0.6) 50%, rgba(35,17,32,0.9) 100%)",
+              maxHeight: "85vh",
+            }}
+          >
+            {/* Same placeholder graphic for now */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#C9A66B" strokeWidth="1.2" opacity="0.6">
+                <rect x="6" y="14" width="36" height="26" rx="5" />
+                <circle cx="24" cy="27" r="7" />
+                <path d="M18 14l3-6h6l3 6" />
+              </svg>
+              <h3 className="font-heading text-2xl text-highlight tracking-wider uppercase">
+                {lightboxItem.label}
+              </h3>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

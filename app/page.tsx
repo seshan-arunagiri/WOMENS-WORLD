@@ -6,9 +6,9 @@ import { MakeupSection } from "@/components/sections/MakeupSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { GallerySection } from "@/components/sections/GallerySection";
 import { ContactSection } from "@/components/sections/ContactSection";
-import { getWhatsAppUrl } from "@/lib/config";
-
-const WA_HERO = getWhatsAppUrl("Hi, I'd like to book a consultation.");
+import { QuickLinksSection } from "@/components/sections/QuickLinksSection";
+import { ReviewsSection } from "@/components/sections/ReviewsSection";
+import { FloatingBookCTA } from "@/components/ui/FloatingBookCTA";
 
 export default function HomePage() {
   return (
@@ -80,9 +80,6 @@ export default function HomePage() {
           {/* CTAs */}
           <div className="flex flex-col items-center w-full gap-8 mt-1 animate-fade-up animate-delay-400">
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button as="a" href={WA_HERO} variant="primary" size="lg" id="hero-cta-book">
-                Book a Consultation
-              </Button>
               <Button as="a" href="#gallery" variant="outline" size="lg" id="hero-cta-explore">
                 Explore Collections
               </Button>
@@ -102,6 +99,18 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      {/* ── Quick Links (Fast Lane) ────────────────────────────── */}
+      {/* Phase 3.5 — Added before Two-Path Split */}
+      <QuickLinksSection />
+
+      {/* ── Gallery ──────────────────────────────────────────── */}
+      {/* Phase 3.5 — Moved up after Quick Links */}
+      <GallerySection />
+
+      {/* ── Reviews ────────────────────────────────────────────── */}
+      {/* Phase 3.5 — Added after Gallery */}
+      <ReviewsSection />
 
       {/* ── Two-Path Split ─────────────────────────────────────── */}
       {/* id="explore" internal; #tailoring / #bridal panels link forward */}
@@ -123,10 +132,6 @@ export default function HomePage() {
       {/* Phase 5a — bg #EDE6F2 lavender, alternates with Makeup     */}
       <ServicesSection />
 
-      {/* ── Gallery ──────────────────────────────────────────── */}
-      {/* Phase 5b — bg #231120 dark, id="gallery" matches nav       */}
-      <GallerySection />
-
       {/* ── Contact ────────────────────────────────────────────── */}
       {/* Phase 6 — bg #EDE6F2 lavender, alternates with Gallery */}
       <ContactSection />
@@ -143,6 +148,7 @@ export default function HomePage() {
         </Container>
       </footer>
 
+      <FloatingBookCTA />
     </main>
   );
 }

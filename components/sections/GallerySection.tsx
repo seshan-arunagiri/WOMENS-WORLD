@@ -65,8 +65,8 @@ function GalleryCell({ item, index, onClick }: { item: GalleryItem; index: numbe
       ].join(" ")}
     >
       {/* Placeholder fill — same violet-gradient as other sections */}
-      <div
-        className="absolute inset-0"
+      <span
+        className="absolute inset-0 block"
         style={{
           background:
             "linear-gradient(145deg, rgba(59,18,64,0.65) 0%, rgba(93,40,110,0.5) 50%, rgba(35,17,32,0.7) 100%)",
@@ -74,13 +74,13 @@ function GalleryCell({ item, index, onClick }: { item: GalleryItem; index: numbe
       />
 
       {/* Hover tint — lightens slightly on hover */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      <span
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 block"
         style={{ backgroundColor: "rgba(201,166,107,0.06)" }}
       />
 
       {/* Camera icon + label — centered */}
-      <div
+      <span
         className="absolute inset-0 flex flex-col items-center justify-center gap-2"
         aria-hidden="true"
       >
@@ -100,8 +100,8 @@ function GalleryCell({ item, index, onClick }: { item: GalleryItem; index: numbe
           <path d="M18 14l3-6h6l3 6" />
           <circle cx="37" cy="20" r="1.6" fill="#C9A66B" stroke="none" />
         </svg>
-        <p
-          className="font-body text-center leading-snug"
+        <span
+          className="font-body text-center leading-snug block"
           style={{
             fontSize: "0.6rem",
             letterSpacing: "0.15em",
@@ -110,8 +110,8 @@ function GalleryCell({ item, index, onClick }: { item: GalleryItem; index: numbe
           }}
         >
           {item.label}
-        </p>
-      </div>
+        </span>
+      </span>
     </button>
   );
 }

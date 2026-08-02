@@ -31,7 +31,7 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 
 function HamburgerIcon({ open }: { open: boolean }) {
   return (
-    <div className="flex flex-col justify-center items-center w-6 h-6 gap-1.5" aria-hidden="true">
+    <span className="flex flex-col justify-center items-center w-6 h-6 gap-1.5" aria-hidden="true">
       <span
         className={`block h-0.5 bg-current rounded-full transition-all duration-300 origin-center ${
           open ? "w-6 rotate-45 translate-y-2" : "w-6"
@@ -47,7 +47,7 @@ function HamburgerIcon({ open }: { open: boolean }) {
           open ? "w-6 -rotate-45 -translate-y-2" : "w-6"
         }`}
       />
-    </div>
+    </span>
   );
 }
 

@@ -8,7 +8,6 @@ import { GallerySection } from "@/components/sections/GallerySection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { QuickLinksSection } from "@/components/sections/QuickLinksSection";
 import { ReviewsSection } from "@/components/sections/ReviewsSection";
-import { FloatingBookCTA } from "@/components/ui/FloatingBookCTA";
 
 export default function HomePage() {
   return (
@@ -147,8 +146,6 @@ export default function HomePage() {
           </p>
         </Container>
       </footer>
-
-      <FloatingBookCTA />
     </main>
   );
 }

@@ -98,7 +98,7 @@ function ServiceBlock({
 }: ServiceBlockProps) {
   return (
     /* Card gives us: bg-primary, border-highlight/25, shadow, hover lift */
-    <Card padding="none" className="flex flex-col overflow-hidden group">
+    <Card id={id} padding="none" className="flex flex-col overflow-hidden group">
 
       {/* ── Photo placeholder ── */}
       <div className="p-4 pb-0">
@@ -110,7 +110,6 @@ function ServiceBlock({
 
         {/* Small tag / category label */}
         <span
-          id={id}
           className="font-body text-xs tracking-[0.25em] uppercase font-medium"
           style={{ color: "#C9A66B", opacity: 0.9 }}
         >

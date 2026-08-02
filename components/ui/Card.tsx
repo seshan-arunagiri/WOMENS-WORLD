@@ -6,6 +6,7 @@ interface CardProps {
   hover?: boolean;
   glass?: boolean;
   padding?: "none" | "sm" | "md" | "lg";
+  id?: string;
 }
 
 const paddingClasses = {
@@ -21,9 +22,11 @@ export function Card({
   hover = true,
   glass = false,
   padding = "md",
+  id,
 }: CardProps) {
   return (
     <div
+      id={id}
       className={[
         /* Shape & border — gold border visible against lavender page bg */
         "rounded-2xl border border-highlight/25",

@@ -1,5 +1,4 @@
 import { Button, Container } from "@/components/ui";
-import { TwoPathSplit } from "@/components/sections/TwoPathSplit";
 import { AboutShop } from "@/components/sections/AboutShop";
 import { TailoringSection } from "@/components/sections/TailoringSection";
 import { MakeupSection } from "@/components/sections/MakeupSection";
@@ -107,14 +106,6 @@ export default function HomePage() {
       {/* Phase 3.5 — Moved up after Quick Links */}
       <GallerySection />
 
-      {/* ── Reviews ────────────────────────────────────────────── */}
-      {/* Phase 3.5 — Added after Gallery */}
-      <ReviewsSection />
-
-      {/* ── Two-Path Split ─────────────────────────────────────── */}
-      {/* id="explore" internal; #tailoring / #bridal panels link forward */}
-      <TwoPathSplit />
-
       {/* ── About the Shop ─────────────────────────────────────── */}
       {/* Dark section — near-black plum #231120, emotional core   */}
       <AboutShop />
@@ -130,6 +121,9 @@ export default function HomePage() {
       {/* ── Beauty & Styling Services ────────────────────────── */}
       {/* Phase 5a — bg #EDE6F2 lavender, alternates with Makeup     */}
       <ServicesSection />
+
+      {/* ── Reviews ────────────────────────────────────────────── */}
+      <ReviewsSection />
 
       {/* ── Contact ────────────────────────────────────────────── */}
       {/* Phase 6 — bg #EDE6F2 lavender, alternates with Gallery */}

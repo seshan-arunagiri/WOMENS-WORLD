@@ -5,13 +5,14 @@ import { useState, useEffect, useCallback } from "react";
 import { getWhatsAppUrl } from "@/lib/config";
 
 const NAV_LINKS = [
-  { label: "Home",            href: "#home",      id: "home" },
-  { label: "About",           href: "#about",     id: "about" },
-  { label: "Tailoring",       href: "#tailoring", id: "tailoring" },
-  { label: "Bridal & Beauty", href: "#bridal",    id: "bridal" },
-  { label: "Services",        href: "#services",  id: "services" },
-  { label: "Gallery",         href: "#gallery",   id: "gallery" },
-  { label: "Contact",         href: "#contact",   id: "contact" },
+  { label: "Home",            href: "#home",        id: "home" },
+  { label: "Quick Links",     href: "#quick-links", id: "quick-links" },
+  { label: "Gallery",         href: "#gallery",     id: "gallery" },
+  { label: "About",           href: "#about",       id: "about" },
+  { label: "Tailoring",       href: "#tailoring",   id: "tailoring" },
+  { label: "Bridal & Beauty", href: "#bridal",      id: "bridal" },
+  { label: "Services",        href: "#services",    id: "services" },
+  { label: "Contact",         href: "#contact",     id: "contact" },
 ];
 
 const WHATSAPP_URL = getWhatsAppUrl("Hi, I'd like to book a consultation at Women's World");
@@ -105,20 +106,9 @@ export function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  const handleNavClick = useCallback((href: string) => {
+  const handleNavClick = useCallback(() => {
     setMenuOpen(false);
-    // Delay so overlay finishes closing before scroll fires
-    setTimeout(() => {
-      const id = href.replace("#", "");
-      const el = document.getElementById(id);
-      if (el) {
-        // Manual offset: getBoundingClientRect gives viewport-relative position.
-        // Add scrollY to get absolute page position, subtract navbar height (64px).
-        const NAVBAR_HEIGHT = 64;
-        const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
-        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
-      }
-    }, 180);
+    // Let native CSS smooth scroll handle the offset via scroll-margin-top
   }, []);
 
   // Before scroll: semi-transparent violet + blur so text is readable over light hero.
@@ -137,12 +127,11 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
 
-          {/* Wordmark */}
           <a
             href="#home"
-            onClick={(e) => { e.preventDefault(); handleNavClick("#home"); }}
-            className="font-heading font-bold text-white tracking-[0.12em] text-sm uppercase transition-opacity hover:opacity-80"
+            onClick={() => handleNavClick()}
             aria-label="Women's World — home"
+            className="font-heading font-bold text-white tracking-[0.12em] text-sm uppercase transition-opacity hover:opacity-80"
           >
             Women&apos;s{" "}
             <span className="text-gradient-gold">World</span>
@@ -156,7 +145,7 @@ export function Navbar() {
                 <li key={link.id}>
                   <a
                     href={link.href}
-                    onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                    onClick={() => handleNavClick()}
                     className={`
                       relative font-body text-xs tracking-[0.12em] uppercase font-medium
                       transition-colors duration-200 pb-0.5
@@ -251,7 +240,7 @@ export function Navbar() {
               <a
                 key={link.id}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                onClick={() => handleNavClick()}
                 className={`
                   w-full text-center py-4 px-6
                   font-heading text-2xl font-bold tracking-wide

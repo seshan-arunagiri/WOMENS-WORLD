@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui";
 import { REVIEWS, TOTAL_REVIEW_COUNT, getAverageRating } from "@/lib/reviews";
 import type { Review } from "@/lib/reviews";
+import { ReviewSubmitForm } from "@/components/sections/ReviewSubmitForm";
 
 /* ── Google Maps URL ─────────────────────────────────────────────────
    Reuses the same URL as the About section "Visit Us" block.         */
@@ -227,6 +228,19 @@ export function ReviewsSection() {
             </span>
           </a>
         </div>
+
+        {/* ── Visual separator ──────────────────────────────── */}
+        <div
+          className="h-px w-full max-w-md mx-auto"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgba(201,166,107,0.25) 40%, rgba(201,166,107,0.25) 60%, transparent)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* ── Review submission form ────────────────────────── */}
+        <ReviewSubmitForm />
 
       </Container>
     </section>

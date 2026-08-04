@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 
 import { getWhatsAppUrl } from "@/lib/config";
 
@@ -134,9 +133,10 @@ export function Navbar() {
             aria-label="Women's World — home"
             className="flex items-center gap-2 transition-opacity hover:opacity-80"
           >
-            {/* Logo mark */}
-            <Image
-              src="/images/logo.png"
+            {/* Logo mark — SVG has native transparent background */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/logo.svg"
               alt=""
               aria-hidden="true"
               width={32}

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 
 const DIRECTIONS_URL = "https://maps.app.goo.gl/XxWcs92kD7FyrUhj6";
 
@@ -50,8 +49,9 @@ export function AboutShop() {
                 className="shrink-0 w-16 h-16 rounded-full flex items-center justify-center"
                 style={{ background: "rgba(201,166,107,0.08)", border: "1px solid rgba(201,166,107,0.2)" }}
               >
-                <Image
-                  src="/images/logo.png"
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/logo.svg"
                   alt="Women's World logo"
                   width={48}
                   height={48}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 import { getWhatsAppUrl } from "@/lib/config";
 
@@ -131,10 +132,21 @@ export function Navbar() {
             href="#home"
             onClick={() => handleNavClick()}
             aria-label="Women's World — home"
-            className="font-heading font-bold text-white tracking-[0.12em] text-sm uppercase transition-opacity hover:opacity-80"
+            className="flex items-center gap-2 transition-opacity hover:opacity-80"
           >
-            Women&apos;s{" "}
-            <span className="text-gradient-gold">World</span>
+            {/* Logo mark */}
+            <Image
+              src="/images/logo.png"
+              alt=""
+              aria-hidden="true"
+              width={32}
+              height={32}
+              className="w-8 h-8 object-contain shrink-0"
+            />
+            <span className="font-heading font-bold text-white tracking-[0.12em] text-sm uppercase">
+              Women&apos;s{" "}
+              <span className="text-gradient-gold">World</span>
+            </span>
           </a>
 
           {/* Desktop links */}

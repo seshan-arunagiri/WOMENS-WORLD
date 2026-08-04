@@ -32,6 +32,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Women's World" }],
   creator: "Women's World",
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
   openGraph: {
     title: "Women's World | Bridal Beauty & Custom Tailoring",
     description:

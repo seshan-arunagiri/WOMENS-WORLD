@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 const DIRECTIONS_URL = "https://maps.app.goo.gl/XxWcs92kD7FyrUhj6";
 
@@ -39,8 +40,40 @@ export function AboutShop() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-          {/* ── Left: Story copy ───────────────────────────────── */}
+          {/* ── Left: Story copy ─────────────────────────────────────── */}
           <div className="flex flex-col gap-8">
+
+            {/* Logo + shop identity block */}
+            <div className="flex items-center gap-4">
+              {/* Watermark logo — low opacity, premium accent */}
+              <div
+                className="shrink-0 w-16 h-16 rounded-full flex items-center justify-center"
+                style={{ background: "rgba(201,166,107,0.08)", border: "1px solid rgba(201,166,107,0.2)" }}
+              >
+                <Image
+                  src="/images/logo.png"
+                  alt="Women's World logo"
+                  width={48}
+                  height={48}
+                  className="w-12 h-12 object-contain"
+                  style={{ opacity: 0.85 }}
+                />
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <span
+                  className="font-heading font-bold text-xl tracking-wide"
+                  style={{ color: "#FAF3F0" }}
+                >
+                  Women&apos;s World
+                </span>
+                <span
+                  className="font-body text-xs tracking-[0.2em] uppercase"
+                  style={{ color: "#C9A66B", opacity: 0.85 }}
+                >
+                  by Shanthi A
+                </span>
+              </div>
+            </div>
 
             {/* Section label */}
             <div className="flex items-center gap-3">

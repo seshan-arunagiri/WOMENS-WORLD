@@ -76,12 +76,37 @@ export function QuickLinksSection() {
   return (
     <section
       id="quick-links"
-      className="py-12 sm:py-16 relative overflow-hidden"
-      style={{
-        background: "linear-gradient(to bottom, #EDE6F2 0%, #231120 100%)",
-      }}
+      className="py-12 sm:py-16 bg-background relative overflow-hidden"
     >
       <Container className="relative z-10 flex flex-col gap-8">
+        {/* Compact heading */}
+        <div className="flex flex-col items-center gap-3">
+          <h2
+            className="font-heading font-bold text-2xl sm:text-3xl text-center"
+            style={{ color: "#3B1240" }}
+          >
+            Find What You{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg, #C9A66B 0%, #E8C98A 50%, #C9A66B 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                fontStyle: "italic",
+              }}
+            >
+              Need
+            </span>
+          </h2>
+          <div
+            className="h-px w-16"
+            style={{
+              background: "linear-gradient(90deg, transparent, #C9A66B 40%, #E8C98A 60%, transparent)",
+            }}
+            aria-hidden="true"
+          />
+        </div>
+
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
           {QUICK_LINKS.map((link, i) => (
             <a
@@ -94,7 +119,7 @@ export function QuickLinksSection() {
                 "animate-fade-up",
               ].join(" ")}
               style={{
-                animationDelay: `${i * 100}ms`
+                animationDelay: `${i * 100}ms`,
               }}
             >
               <span

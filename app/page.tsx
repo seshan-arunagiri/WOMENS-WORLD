@@ -34,7 +34,7 @@ export default function HomePage() {
           <div className="flex items-center gap-3 animate-fade-in">
             <div className="gold-divider w-12" aria-hidden="true" />
             <span className="font-body text-highlight text-xs tracking-[0.35em] uppercase font-medium">
-              Est. 2024
+              Est. 2016
             </span>
             <div className="gold-divider w-12" aria-hidden="true" />
           </div>
@@ -136,7 +136,7 @@ export default function HomePage() {
             Women&apos;s World
           </span>
           <p className="font-body text-text-muted text-xs">
-            © 2024 Women&apos;s World. All rights reserved.
+            © 2016 Women&apos;s World. All rights reserved.
           </p>
         </Container>
       </footer>
